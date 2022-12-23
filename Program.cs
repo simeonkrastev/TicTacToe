@@ -35,28 +35,23 @@ namespace TicTacToe
 
 				int y = int.Parse("" + input[1]) - 1;
 				int x;
-				if (input[0] > 3)
+
+				switch (input[0])
 				{
-					break;
-
-					switch (input[0])
-					{
-
-						case 'A':
-							x = 0;
-							break;
-						case 'B':
-							x = 1;
-							break;
-						case 'C':
-							x = 2;
-							break;
-						default:
-							x = -1;
-							break;
-					}
+					case 'A':
+						x = 0;
+						break;
+					case 'B':
+						x = 1;
+						break;
+					case 'C':
+						x = 2;
+						break;
+					default:
+						x = -1;
+						break;
 				}
-                }
+
 				// Mark the move
 				board[y, x] = playerTurn;
 
