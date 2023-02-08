@@ -26,7 +26,7 @@ namespace TicTacToe
 			while (true)
 			{
 				Console.Write($"Player {playerTurn} turn: ");
-				string input = Console.ReadLine(); // eg. A1
+				string input = Console.ReadLine().ToUpper(); // eg. A1 FIX:.ToUpper() so that the user can use lowercase for input
 				if (input == "END")
 				{
 					EndGame(winner);
@@ -53,7 +53,18 @@ namespace TicTacToe
 				}
 
 				// Mark the move
-				board[y, x] = playerTurn;
+				if (board[y, x] != 'X')
+				{
+					if(board[y, x] != 'O')
+					{
+                        board[y, x] = playerTurn; // bug fix: player can no longer take other player's spots
+                    }
+                }
+				else
+				{
+					Console.WriteLine("You tried to cheat and take a players turn. Now you lose your turn");
+				}
+			
 
 				// Refresh the current board on the console
 				Draw(board);
