@@ -32,11 +32,24 @@ namespace TicTacToe
 					EndGame(winner);
 					return;
 				}
+				//order of input(command)
+				char letter = ' ';
+				char num = ' ';
+				if(input[0] >= 48 && input[0] <= 57)
+                {
+					num = input[0];
+					letter = input[1];
+				}
+                else
+                {
+					num = input[1];
+					letter = input[0];
+                }
 
-				int y = int.Parse("" + input[1]) - 1;
+				int y = int.Parse("" + num) - 1;
 				int x;
 
-				switch (input[0])
+				switch (letter)
 				{
 					case 'A':
 						x = 0;
@@ -71,9 +84,9 @@ namespace TicTacToe
 
 				// Check win condition
 				winner = CheckWinCondition(board);
-				if (winner != ' ')
+				if (winner != ' ')// bug
 				{
-					EndGame(winner);
+					EndGame(winner);	
 					return;
 				}
 
@@ -115,8 +128,25 @@ namespace TicTacToe
 				}
 			}
 
-
-			return ' ';
+			//filled board?
+			bool gameFinished = true;
+			foreach(char square in board)
+            {
+				if(square == ' ')
+                {
+					gameFinished = false;
+					break;
+                }
+            }
+			//draw or another turn
+            if (!gameFinished)
+            {
+				return ' ';
+			}
+            else
+            {
+				return 'D';
+            }
 		}
 
 		static void Draw(char[,] board)
@@ -135,11 +165,12 @@ namespace TicTacToe
 		static void EndGame(char winner)
 		{
 			Console.WriteLine("Game Over!");
-			if (winner == ' ')
-			{
-				Console.WriteLine("Draw");
-			}
-			else
+		
+            if(winner == 'D')
+            {
+				Console.WriteLine("Draw!");
+            }
+			else if (winner != ' ')
 			{
 				Console.WriteLine($"Player {winner} wins");
 			}
